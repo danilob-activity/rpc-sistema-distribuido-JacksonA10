@@ -1,3 +1,4 @@
+
 import java.util.*;
 import java.net.*;
 class RPCServer
@@ -51,9 +52,18 @@ class RPCServer
             {
                 result= "" + div(val1,val2);
             }
-            byte b1[]=result.getBytes();
+            else if(methodName.equalsIgnoreCase("mod"))
+            {
+                result= "" + mod(val1,val2);
+            }
+            else if(methodName.equalsIgnoreCase("pow"))
+            {
+                result= "" + pow(val1,val2);
+            }
+            result = "JArruda" + result;
+            byte b1[]= result.getBytes();
             DatagramSocket ds1 = new DatagramSocket();
-            DatagramPacket dp1 = new DatagramPacket(b1,b1.length,InetAddress.getLocalHost(),1300);
+            DatagramPacket dp1 = new DatagramPacket(b1,b1.length,dp.getAddress(),1300);
             System.out.println("result : "+result+"\n");
             ds1.send(dp1);
             }
@@ -78,6 +88,14 @@ class RPCServer
     public float div(float val3, float val4)
     {
         return val3/val4;
+    }
+    public float mod(float val3, float val4)
+    {
+        return val3%val4;
+    }
+    public float pow(float val3, float val4)
+    {
+        return (float) Math.pow(val3,val4);
     }
     public static void main(String[] args)
     {
